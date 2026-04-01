@@ -739,11 +739,30 @@ export function formatCurrency(amount: number, locale: Locale = 'vi'): string {
     zh: 'zh-CN',
   }[locale] || 'vi-VN';
 
-  return new Intl.NumberFormat(numberFormatLocale, {
-    style: 'currency',
-    currency: getCurrencyCode(locale),
+  const formattedAmount = new Intl.NumberFormat(numberFormatLocale, {
+    style: 'decimal',
     maximumFractionDigits: 0,
   }).format(amount);
+
+  return `${getCurrencySymbol(locale)}${formattedAmount}`;
+}
+
+export function formatCompactNumber(amount: number, locale: Locale = 'vi'): string {
+  const numberFormatLocale = {
+    vi: 'vi-VN',
+    en: 'en-US',
+    hi: 'en-IN',
+    ko: 'ko-KR',
+    zh: 'zh-CN',
+  }[locale] || 'vi-VN';
+
+  const formattedAmount = new Intl.NumberFormat(numberFormatLocale, {
+    notation: 'compact',
+    compactDisplay: 'short',
+    maximumFractionDigits: 1,
+  }).format(amount);
+
+  return `${getCurrencySymbol(locale)}${formattedAmount}`;
 }
 
 export function formatDate(date: string | Date, locale: Locale = 'vi'): string {

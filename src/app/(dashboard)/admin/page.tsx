@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate } from '@/lib/i18n';
+import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
 import { showToast } from '@/components/Toast';
 import DeleteModal from '@/components/DeleteModal';
 import {
@@ -145,7 +145,7 @@ export default function AdminPage() {
               <BarChart data={adminStats.monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
                 <XAxis dataKey="month" stroke="#6b6b8a" fontSize={12} />
-                <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => `${(v / 1000000).toFixed(0)}M`} />
+                <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
                 <Tooltip
                   contentStyle={{ background: '#1a1a3e', border: '1px solid rgba(124,92,252,0.3)', borderRadius: '8px', color: '#e8e8f0' }}
                   formatter={(value: any) => formatCurrency(Number(value), locale)}

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate } from '@/lib/i18n';
+import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
   PieChart, Pie, Cell,
@@ -133,7 +133,7 @@ export default function DashboardPage() {
             <BarChart data={stats.monthlyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
               <XAxis dataKey="month" stroke="#6b6b8a" fontSize={12} />
-              <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => `${(v / 1000000).toFixed(0)}M`} />
+              <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
               <Tooltip
                 contentStyle={{
                   background: '#1a1a3e',

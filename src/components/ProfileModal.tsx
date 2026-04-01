@@ -202,10 +202,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Budget Limit (VND)</label>
+              <label className="form-label">Budget Limit ({t.common.currency})</label>
               <input
-                type="number"
                 className="form-input"
+                type="number"
                 value={budgetLimit}
                 onChange={(e) => setBudgetLimit(e.target.value)}
                 required

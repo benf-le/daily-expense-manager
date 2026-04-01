@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate } from '@/lib/i18n';
+import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
 import DeleteModal from '@/components/DeleteModal';
 import { showToast } from '@/components/Toast';
 import {
@@ -208,7 +208,7 @@ export default function OutcomePage() {
               </div>
 
               <div className="form-group">
-                <label className="form-label">{t.outcome.form.amount} (VND)</label>
+                <label className="form-label">{t.outcome.form.amount} ({t.common.currency})</label>
                 <input
                   className="form-input"
                   type="number"
@@ -444,7 +444,7 @@ export default function OutcomePage() {
                   <AreaChart data={monthlyTrend}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
                     <XAxis dataKey="month" stroke="#6b6b8a" fontSize={10} />
-                    <YAxis stroke="#6b6b8a" fontSize={10} tickFormatter={(v) => `${(v / 1000000).toFixed(0)}M`} />
+                    <YAxis stroke="#6b6b8a" fontSize={10} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
                     <Tooltip
                       contentStyle={{
                         background: '#1a1a3e',
