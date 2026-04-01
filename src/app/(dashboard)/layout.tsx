@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
+import MobileMenu from '@/components/MobileMenu';
 import { useLanguage } from '@/components/LanguageProvider';
 
 export default function DashboardLayout({
@@ -36,6 +37,7 @@ export default function DashboardLayout({
     <div className="app-layout">
       <Sidebar />
       <Navbar title={t.nav.dashboard} />
+      <MobileMenu />
       <main className="main-content">
         {children}
       </main>

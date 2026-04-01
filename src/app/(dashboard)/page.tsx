@@ -109,8 +109,8 @@ export default function DashboardPage() {
             {stats.budgetStatus === 'exceeded'
               ? t.dashboard.budgetExceeded
               : stats.budgetStatus === 'warning'
-              ? t.dashboard.budgetWarning.replace('{percent}', String(stats.budgetPercent))
-              : t.dashboard.budgetSafe}
+                ? t.dashboard.budgetWarning.replace('{percent}', String(stats.budgetPercent))
+                : t.dashboard.budgetSafe}
             {' • '}
             {t.dashboard.budget}: {formatCurrency(stats.budgetLimit, locale)} | {t.dashboard.spent}: {formatCurrency(stats.monthlyOutcome, locale)} | {t.dashboard.remaining}: {formatCurrency(stats.budgetRemaining, locale)}
           </div>

@@ -1,6 +1,5 @@
 'use client';
 
-import { signOut } from 'next-auth/react';
 import { useLanguage } from './LanguageProvider';
 
 export default function Navbar({ title }: { title: string }) {
@@ -32,13 +31,6 @@ export default function Navbar({ title }: { title: string }) {
             ))}
           </select>
         </div>
-        <button
-          className="btn-logout"
-          onClick={() => signOut({ callbackUrl: '/login' })}
-          id="btn-logout"
-        >
-          {t.nav.logout}
-        </button>
       </div>
     </nav>
   );
