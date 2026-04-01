@@ -29,4 +29,3 @@ export default function RootLayout({
   );
 }
 
-export const dynamic = "force-dynamic";
