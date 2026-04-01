@@ -75,6 +75,26 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## 🐳 Running with Docker
+
+You can easily run the entire application using Docker. The provided Dockerfile is configured to automatically generate the Prisma client, migrate the database, and seed initial data during the build process.
+
+### 1. Build the Docker Image
+
+```bash
+docker build -t daily-expense-app .
+```
+
+### 2. Run the Container
+
+```bash
+docker run -d -p 3000:3000 --name expense-manager daily-expense-app
+```
+
+The application will be available at [http://localhost:3000](http://localhost:3000).
+
+*(Note: Because the project uses an embedded SQLite database, the `dev.db` file is stored directly inside the container.)*
+
 ## 💬 Additional Commands
 
 | Command | Description |
