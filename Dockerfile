@@ -17,7 +17,6 @@ COPY . .
 
 # Set default environment variables for the build and runtime
 ENV NODE_ENV=production
-ENV PRISMA_CLIENT_ENGINE_TYPE="library"
 
 # Generate the Prisma Client
 RUN npx prisma generate
