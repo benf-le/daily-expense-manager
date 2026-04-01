@@ -17,16 +17,18 @@ COPY . .
 
 # Set default environment variables for the build and runtime
 ENV NODE_ENV=production
-ENV DATABASE_URL="file:./dev.db"
+ENV DATABASE_URL="postgresql://username:password@server-ip:5432/db_name?schema=public"
 ENV NEXTAUTH_SECRET="super-secret-key-daily-expense-manager-2026"
 ENV NEXTAUTH_URL="http://localhost:3000"
 
 # Generate the Prisma Client
 RUN npx prisma generate
 
-# Push DB schema to create the SQLite file inside the container, and run seed script
-RUN npx prisma db push
-RUN npm run seed
+# Note: Running 'npx prisma db push' or 'npm run seed' during Docker build 
+# is not recommended when using an external database (remote PostgreSQL).
+# These should be run at deployment or runtime.
+# RUN npx prisma db push
+# RUN npm run seed
 
 # Build the Next.js application for production
 RUN npm run build

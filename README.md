@@ -9,14 +9,14 @@ A comprehensive personal finance management application built with Next.js 16. T
 *   **Dashboard & Analytics:** A detailed dashboard featuring data visualization elements (using Recharts) to help track your financial health and budget alerts.
 *   **Responsive Layout:** Features a modern, responsive three-panel layout optimized for both desktop and mobile views.
 *   **Bilingual Support:** Full support for both English (EN) and Vietnamese (VN) languages.
-*   **Database Setup:** Easy-to-manage SQLite database setup with Prisma ORM.
+*   **Database Setup:** Robust PostgreSQL database integration with Prisma ORM.
 
 ## 🛠️ Technology Stack
 
 *   [Next.js 16](https://nextjs.org/) - React framework for the frontend and backend API endpoints.
 *   [Prisma](https://www.prisma.io/) - Next-generation Node.js and TypeScript ORM.
 *   [NextAuth.js](https://next-auth.js.org/) - Authentication for Next.js.
-*   [SQLite](https://www.sqlite.org/index.html) - Embedded local database.
+*   [PostgreSQL](https://www.postgresql.org/) - Reliable relational database.
 *   [Recharts](https://recharts.org/) - Composable charting library built on React components.
 *   [Zod](https://zod.dev/) - TypeScript-first schema validation.
 
@@ -42,14 +42,14 @@ npm install
 Create a `.env` file in the root directory (if it doesn't already exist) and ensure it has the following variables:
 
 ```env
-DATABASE_URL=file:./dev.db  
+DATABASE_URL="postgresql://username:password@localhost:5432/daily_expense_manager?schema=public"
 NEXTAUTH_SECRET=super-secret-key-daily-expense-manager-2026  
 NEXTAUTH_URL=http://localhost:3000 
 ```
 
 ### 3. Initialize the Database
 
-Generate the Prisma Client and sync your schema with the SQLite database:
+Generate the Prisma Client and sync your schema with the PostgreSQL database:
 
 ```bash
 npx prisma generate
@@ -93,7 +93,7 @@ docker run -d -p 3000:3000 --name expense-manager daily-expense-app
 
 The application will be available at [http://localhost:3000](http://localhost:3000).
 
-*(Note: Because the project uses an embedded SQLite database, the `dev.db` file is stored directly inside the container.)*
+*(Note: Ensure your PostgreSQL server is accessible by the container via the `DATABASE_URL` environment variable.)*
 
 ## 💬 Additional Commands
 
