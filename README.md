@@ -44,7 +44,7 @@ Create a `.env` file in the root directory (if it doesn't already exist) and ens
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/daily_expense_manager?schema=public"
 NEXTAUTH_SECRET=super-secret-key-daily-expense-manager-2026  
-NEXTAUTH_URL=http://localhost:3000 
+NEXTAUTH_URL=http://localhost:6886 
 ```
 
 ### 3. Initialize the Database
@@ -73,7 +73,7 @@ Finally, run the app in development mode:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:6886](http://localhost:6886) with your browser to see the result.
 
 ## 🐳 Running with Docker
 
@@ -88,10 +88,10 @@ docker build -t daily-expense-app .
 ### 2. Run the Container
 
 ```bash
-docker run -d -p 3000:3000 --name expense-manager daily-expense-app
+docker run -d -p 6886:6886 --name expense-manager daily-expense-app
 ```
 
-The application will be available at [http://localhost:3000](http://localhost:3000).
+The application will be available at [http://localhost:6886](http://localhost:6886).
 
 *(Note: Ensure your PostgreSQL server is accessible by the container via the `DATABASE_URL` environment variable.)*
 

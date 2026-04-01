@@ -30,8 +30,8 @@ RUN npm run seed
 # Build the Next.js application for production
 RUN npm run build
 
-# Expose the default Next.js port
-EXPOSE 3000
+# Expose the new frontend port
+EXPOSE 6886
 
-# Command to start the Next.js production server
+# Command to start the Next.js production server on port 6886
 CMD ["npm", "run", "start"]
