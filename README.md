@@ -77,7 +77,7 @@ Open [http://localhost:6886](http://localhost:6886) with your browser to see the
 
 ## 🐳 Running with Docker
 
-You can easily run the entire application using Docker. The provided Dockerfile is configured to automatically generate the Prisma client, migrate the database, and seed initial data during the build process.
+You can easily run the entire application using Docker. The Dockerfile is optimized for production and generates the Prisma client during the build. However, database schema initialization and seeding must be performed manually after the container is running to ensure connectivity with your PostgreSQL instance.
 
 ### 1. Build the Docker Image
 
@@ -92,6 +92,18 @@ docker run -d -p 6886:6886 --name expense-manager daily-expense-app
 ```
 
 The application will be available at [http://localhost:6886](http://localhost:6886).
+
+### 3. Initialize Database inside Docker
+
+Run these commands to sync your schema and seed initial data for the first time:
+
+```bash
+# Sync database schema
+docker exec -it expense-manager npx prisma db push
+
+# Seed initial data (Admin accounts, categories, etc.)
+docker exec -it expense-manager npm run seed
+```
 
 *(Note: Ensure your PostgreSQL server is accessible by the container via the `DATABASE_URL` environment variable.)*
 
