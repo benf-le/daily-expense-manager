@@ -148,7 +148,7 @@ export default function AdminPage() {
                 <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => `${(v / 1000000).toFixed(0)}M`} />
                 <Tooltip
                   contentStyle={{ background: '#1a1a3e', border: '1px solid rgba(124,92,252,0.3)', borderRadius: '8px', color: '#e8e8f0' }}
-                  formatter={(value: number) => formatCurrency(value)}
+                  formatter={(value: any) => formatCurrency(Number(value))}
                 />
                 <Legend />
                 <Bar dataKey="income" name={t.dashboard.totalIncome} fill="#00d4aa" radius={[4, 4, 0, 0]} />
