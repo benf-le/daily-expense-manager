@@ -370,7 +370,7 @@ export default function IncomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: number) => formatCurrency(value)}
+                      formatter={(value: any) => formatCurrency(Number(value))}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -408,7 +408,7 @@ export default function IncomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: number) => formatCurrency(value)}
+                      formatter={(value: any) => formatCurrency(Number(value))}
                     />
                     <Area type="monotone" dataKey="amount" stroke="#00d4aa" fill="rgba(0,212,170,0.2)" strokeWidth={2} />
                   </AreaChart>

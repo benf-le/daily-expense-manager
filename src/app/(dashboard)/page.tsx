@@ -141,7 +141,7 @@ export default function DashboardPage() {
                   borderRadius: '8px',
                   color: '#e8e8f0',
                 }}
-                formatter={(value: number) => formatCurrency(value)}
+                formatter={(value: any) => formatCurrency(Number(value))}
               />
               <Legend />
               <Bar dataKey="income" name={t.dashboard.totalIncome} fill="#00d4aa" radius={[4, 4, 0, 0]} />
@@ -165,7 +165,7 @@ export default function DashboardPage() {
                   outerRadius={100}
                   paddingAngle={5}
                   dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                 >
                   {pieData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={PIE_COLORS[index]} />
@@ -178,7 +178,7 @@ export default function DashboardPage() {
                     borderRadius: '8px',
                     color: '#e8e8f0',
                   }}
-                  formatter={(value: number) => formatCurrency(value)}
+                  formatter={(value: any) => formatCurrency(Number(value))}
                 />
               </PieChart>
             </ResponsiveContainer>
