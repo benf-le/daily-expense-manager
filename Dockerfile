@@ -17,10 +17,7 @@ COPY . .
 
 # Set default environment variables for the build and runtime
 ENV NODE_ENV=production
-
-# The .env file will be copied as part of the 'COPY . .' step above.
-# Next.js and Prisma naturally look for .env in the app root.
-# Make sure your .env has all necessary variables like DATABASE_URL, NEXTAUTH_SECRET, etc.
+ENV PRISMA_CLIENT_ENGINE_TYPE="library"
 
 # Generate the Prisma Client
 RUN npx prisma generate
