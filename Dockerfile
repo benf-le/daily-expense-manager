@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 # Install OpenSSL (required by Prisma engine) and libc6-compat
 RUN apk add --no-cache openssl libc6-compat
