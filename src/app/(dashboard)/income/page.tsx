@@ -52,7 +52,8 @@ export default function IncomePage() {
       const res = await fetch(`/api/incomes?${params}`);
       if (res.ok) {
         const data = await res.json();
-        setIncomes(data);
+        const sortedData = data.sort((a: Income, b: Income) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        setIncomes(sortedData);
       }
     } catch (error) {
       console.error('Failed to fetch incomes:', error);

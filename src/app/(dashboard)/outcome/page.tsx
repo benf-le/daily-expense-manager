@@ -54,7 +54,8 @@ export default function OutcomePage() {
       const res = await fetch(`/api/outcomes?${params}`);
       if (res.ok) {
         const data = await res.json();
-        setOutcomes(data);
+        const sortedData = data.sort((a: Outcome, b: Outcome) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        setOutcomes(sortedData);
       }
     } catch (error) {
       console.error('Failed to fetch outcomes:', error);

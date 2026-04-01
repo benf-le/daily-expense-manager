@@ -97,7 +97,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Budget Alert */}
-      {/* <div className={`budget-alert ${stats.budgetStatus}`}>
+      <div className={`budget-alert ${stats.budgetStatus}`}>
         <div className="alert-icon">
           {stats.budgetStatus === 'exceeded' ? '🚨' : stats.budgetStatus === 'warning' ? '⚠️' : '✅'}
         </div>
@@ -121,7 +121,7 @@ export default function DashboardPage() {
             style={{ width: `${Math.min(stats.budgetPercent, 100)}%` }}
           ></div>
         </div>
-      </div> */}
+      </div>
 
       {/* Charts */}
       <div className="charts-grid">

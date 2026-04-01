@@ -5,9 +5,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useLanguage } from './LanguageProvider';
+import ProfileModal from './ProfileModal';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const pathname = usePathname();
   const { data: session } = useSession();
   const { t, locale, setLocale } = useLanguage();
@@ -16,6 +19,18 @@ export default function MobileMenu() {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  // Fetch avatar on load
+  useEffect(() => {
+    if (session) {
+      fetch('/api/users/profile')
+        .then(res => res.json())
+        .then(data => {
+          if (data.avatar) setAvatarUrl(data.avatar);
+        })
+        .catch(console.error);
+    }
+  }, [session]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -119,8 +134,12 @@ export default function MobileMenu() {
         {/* User Section */}
         <div className="mobile-user-section">
           <div className="mobile-nav-label">USER</div>
-          <div className="mobile-user-card">
-            <div className="mobile-user-avatar">{userInitial}</div>
+          <div className="mobile-user-card" onClick={() => setIsProfileOpen(true)} style={{ cursor: 'pointer' }}>
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Avatar" className="mobile-user-avatar" style={{ objectFit: 'cover' }} />
+            ) : (
+              <div className="mobile-user-avatar">{userInitial}</div>
+            )}
             <div className="mobile-user-info">
               <div className="mobile-user-name">{userName}</div>
               <div className="mobile-user-email">{userEmail}</div>
@@ -129,7 +148,7 @@ export default function MobileMenu() {
           </div>
           <button
             className="mobile-logout-btn"
-            onClick={() => signOut({ callbackUrl: '/login' })}
+            onClick={(e) => { e.stopPropagation(); signOut({ callbackUrl: '/login' }); }}
             id="mobile-btn-logout"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -141,6 +160,8 @@ export default function MobileMenu() {
           </button>
         </div>
       </aside>
+      
+      <ProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </>
   );
 }

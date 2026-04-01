@@ -1,14 +1,29 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useLanguage } from './LanguageProvider';
+import ProfileModal from './ProfileModal';
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const { t } = useLanguage();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (session) {
+      fetch('/api/users/profile')
+        .then(res => res.json())
+        .then(data => {
+          if (data.avatar) setAvatarUrl(data.avatar);
+        })
+        .catch(console.error);
+    }
+  }, [session]);
 
   if (!session) return null;
 
@@ -44,15 +59,19 @@ export default function Sidebar() {
       </nav>
 
       <div className="sidebar-footer">
-        <div className="sidebar-user">
-          <div className="user-avatar">{userInitial}</div>
+        <div className="sidebar-user" onClick={() => setIsProfileOpen(true)} style={{ cursor: 'pointer' }}>
+          {avatarUrl ? (
+            <img src={avatarUrl} alt="Avatar" className="user-avatar" style={{ objectFit: 'cover' }} />
+          ) : (
+            <div className="user-avatar">{userInitial}</div>
+          )}
           <div className="user-info">
             <div className="user-name">{userName}</div>
             <div className="user-role">{session.user?.role || 'USER'}</div>
           </div>
           <button 
             className="sidebar-logout-btn" 
-            onClick={() => signOut({ callbackUrl: '/login' })}
+            onClick={(e) => { e.stopPropagation(); signOut({ callbackUrl: '/login' }); }}
             title={t.nav.logout}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -63,6 +82,7 @@ export default function Sidebar() {
           </button>
         </div>
       </div>
+      <ProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </aside>
   );
 }
