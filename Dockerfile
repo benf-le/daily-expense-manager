@@ -24,8 +24,8 @@ RUN npx prisma generate
 # Note: Running 'npx prisma db push' or 'npm run seed' during Docker build 
 # is not recommended when using an external database (remote PostgreSQL).
 # These should be run at deployment or runtime.
-# RUN npx prisma db push
-# RUN npm run seed
+RUN npx prisma db push
+RUN npm run seed
 
 # Build the Next.js application for production
 RUN npm run build
