@@ -130,6 +130,12 @@ export const translations = {
       deleteConfirm: 'Bạn có chắc muốn xóa?',
       all: 'Tất cả',
       currency: 'VND',
+      currencySymbol: '₫',
+      budgetSetupTitle: 'Thiết lập ngân sách',
+      budgetSetupDescription: 'Vui lòng nhập ngân sách để bắt đầu quản lý chi tiêu.',
+      budgetSetupPlaceholder: 'Nhập ngân sách',
+      saveBudget: 'Lưu ngân sách',
+      invalidBudget: 'Vui lòng nhập ngân sách lớn hơn 0',
       dateFormat: 'dd/MM/yyyy',
     },
     // Admin
@@ -265,7 +271,13 @@ export const translations = {
       error: 'An error occurred!',
       deleteConfirm: 'Are you sure you want to delete?',
       all: 'All',
-      currency: 'VND',
+      currency: 'USD',
+      currencySymbol: '$',
+      budgetSetupTitle: 'Set your budget',
+      budgetSetupDescription: 'Please enter a budget limit to start tracking expenses.',
+      budgetSetupPlaceholder: 'Enter budget limit',
+      saveBudget: 'Save budget',
+      invalidBudget: 'Please enter a budget greater than 0',
       dateFormat: 'MM/dd/yyyy',
     },
     admin: {
@@ -400,7 +412,13 @@ export const translations = {
       error: 'एक त्रुटि हुई!',
       deleteConfirm: 'क्या आप वाकई हटाना चाहते हैं?',
       all: 'सभी',
-      currency: 'VND',
+      currency: 'INR',
+      currencySymbol: '₹',
+      budgetSetupTitle: 'अपना बजट सेट करें',
+      budgetSetupDescription: 'खर्च ट्रैक करना शुरू करने के लिए कृपया बजट सीमा दर्ज करें।',
+      budgetSetupPlaceholder: 'बजट सीमा दर्ज करें',
+      saveBudget: 'बजट सहेजें',
+      invalidBudget: 'कृपया 0 से बड़ा बजट दर्ज करें',
       dateFormat: 'dd/MM/yyyy',
     },
     admin: {
@@ -535,7 +553,13 @@ export const translations = {
       error: '오류가 발생했습니다!',
       deleteConfirm: '정말 삭제하시겠습니까?',
       all: '전체',
-      currency: 'VND',
+      currency: 'KRW',
+      currencySymbol: '₩',
+      budgetSetupTitle: '예산을 설정하세요',
+      budgetSetupDescription: '지출 관리를 시작하려면 예산 한도를 입력해 주세요.',
+      budgetSetupPlaceholder: '예산 한도 입력',
+      saveBudget: '예산 저장',
+      invalidBudget: '0보다 큰 예산을 입력해 주세요',
       dateFormat: 'yyyy.MM.dd',
     },
     admin: {
@@ -670,7 +694,13 @@ export const translations = {
       error: '发生错误！',
       deleteConfirm: '确定要删除吗？',
       all: '全部',
-      currency: 'VND',
+      currency: 'CNY',
+      currencySymbol: '¥',
+      budgetSetupTitle: '设置预算',
+      budgetSetupDescription: '请输入预算上限后再开始记录支出。',
+      budgetSetupPlaceholder: '输入预算上限',
+      saveBudget: '保存预算',
+      invalidBudget: '请输入大于 0 的预算',
       dateFormat: 'yyyy/MM/dd',
     },
     admin: {
@@ -692,6 +722,14 @@ export function getTranslations(locale: Locale): TranslationKeys {
   return translations[locale] as TranslationKeys;
 }
 
+export function getCurrencyCode(locale: Locale = 'vi'): string {
+  return translations[locale].common.currency;
+}
+
+export function getCurrencySymbol(locale: Locale = 'vi'): string {
+  return translations[locale].common.currencySymbol;
+}
+
 export function formatCurrency(amount: number, locale: Locale = 'vi'): string {
   const numberFormatLocale = {
     vi: 'vi-VN',
@@ -703,7 +741,7 @@ export function formatCurrency(amount: number, locale: Locale = 'vi'): string {
 
   return new Intl.NumberFormat(numberFormatLocale, {
     style: 'currency',
-    currency: 'VND',
+    currency: getCurrencyCode(locale),
     maximumFractionDigits: 0,
   }).format(amount);
 }

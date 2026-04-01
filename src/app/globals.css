@@ -1091,6 +1091,32 @@ body::before {
   justify-content: center;
 }
 
+.budget-setup-modal {
+  max-width: 520px;
+}
+
+.budget-setup-modal form {
+  margin-top: 8px;
+}
+
+.budget-input-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.budget-currency-tag {
+  min-width: 92px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

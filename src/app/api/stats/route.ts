@@ -105,9 +105,17 @@ export async function GET() {
 
     // Budget alert
     const monthlyOutcomeAmount = monthlyOutcome._sum.amount || 0;
-    const budgetLimit = user?.budgetLimit || 5000000;
-    const budgetPercent = Math.round((monthlyOutcomeAmount / budgetLimit) * 100);
-    const budgetStatus = budgetPercent >= 100 ? 'exceeded' : budgetPercent >= 80 ? 'warning' : 'safe';
+    const budgetLimit = user?.budgetLimit ?? 0;
+    const budgetPercent = budgetLimit > 0
+      ? Math.round((monthlyOutcomeAmount / budgetLimit) * 100)
+      : 0;
+    const budgetStatus = budgetLimit <= 0
+      ? 'safe'
+      : budgetPercent >= 100
+        ? 'exceeded'
+        : budgetPercent >= 80
+          ? 'warning'
+          : 'safe';
 
     return NextResponse.json({
       totalIncome: totalIncome._sum.amount || 0,
