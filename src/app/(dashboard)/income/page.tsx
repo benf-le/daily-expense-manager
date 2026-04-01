@@ -141,7 +141,14 @@ export default function IncomePage() {
   // Monthly trend
   const monthlyMap: Record<string, number> = {};
   incomes.forEach((inc) => {
-    const m = new Date(inc.date).toLocaleDateString('vi-VN', { month: 'short', year: '2-digit' });
+    const localeMap: Record<string, string> = {
+      vi: 'vi-VN',
+      en: 'en-US',
+      hi: 'en-IN',
+      ko: 'ko-KR',
+      zh: 'zh-CN',
+    };
+    const m = new Date(inc.date).toLocaleDateString(localeMap[locale] || 'vi-VN', { month: 'short', year: '2-digit' });
     monthlyMap[m] = (monthlyMap[m] || 0) + inc.amount;
   });
   const monthlyTrend = Object.entries(monthlyMap).map(([month, amount]) => ({ month, amount })).reverse().slice(0, 6).reverse();
@@ -177,7 +184,7 @@ export default function IncomePage() {
                   type="text"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  placeholder={locale === 'vi' ? 'Nhập tiêu đề...' : 'Enter title...'}
+                  placeholder={`${t.income.form.titleLabel}...`}
                   required
                 />
               </div>
@@ -227,7 +234,7 @@ export default function IncomePage() {
                   className="form-textarea"
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
-                  placeholder={locale === 'vi' ? 'Mô tả chi tiết...' : 'Description...'}
+                   placeholder={`${t.income.form.description}...`}
                 />
               </div>
 
@@ -251,7 +258,7 @@ export default function IncomePage() {
           <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="card-header">
               <div className="card-title">{t.income.list}</div>
-              <div className="card-subtitle">{formatCurrency(totalIncome)}</div>
+              <div className="card-subtitle">{formatCurrency(totalIncome, locale)}</div>
             </div>
 
             <div className="filter-bar">
@@ -302,7 +309,7 @@ export default function IncomePage() {
                     {incomes.map((income) => (
                       <tr key={income.id}>
                         <td>{income.title}</td>
-                        <td className="amount-income">{formatCurrency(income.amount)}</td>
+                        <td className="amount-income">{formatCurrency(income.amount, locale)}</td>
                         <td>
                           <span className="category-badge">
                             {(t.income.categories as Record<string, string>)[income.category] || income.category}
@@ -370,7 +377,7 @@ export default function IncomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value))}
+                      formatter={(value: any) => formatCurrency(Number(value), locale)}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -408,7 +415,7 @@ export default function IncomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value))}
+                      formatter={(value: any) => formatCurrency(Number(value), locale)}
                     />
                     <Area type="monotone" dataKey="amount" stroke="#00d4aa" fill="rgba(0,212,170,0.2)" strokeWidth={2} />
                   </AreaChart>

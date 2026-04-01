@@ -7,20 +7,31 @@ interface LanguageContextType {
   locale: Locale;
   t: TranslationKeys;
   toggleLocale: () => void;
+  setLocale: (locale: Locale) => void;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+const LOCALES: Locale[] = ['vi', 'en', 'hi', 'ko', 'zh'];
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>('vi');
+  const [locale, setLocaleState] = useState<Locale>('vi');
   const t = getTranslations(locale);
 
   const toggleLocale = useCallback(() => {
-    setLocale((prev) => (prev === 'vi' ? 'en' : 'vi'));
+    setLocaleState((prev) => {
+      const currentIndex = LOCALES.indexOf(prev);
+      const nextIndex = (currentIndex + 1) % LOCALES.length;
+      return LOCALES[nextIndex];
+    });
+  }, []);
+
+  const setLocale = useCallback((newLocale: Locale) => {
+    setLocaleState(newLocale);
   }, []);
 
   return (
-    <LanguageContext.Provider value={{ locale, t, toggleLocale }}>
+    <LanguageContext.Provider value={{ locale, t, toggleLocale, setLocale }}>
       {children}
     </LanguageContext.Provider>
   );

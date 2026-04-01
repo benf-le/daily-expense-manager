@@ -117,12 +117,12 @@ export default function AdminPage() {
           <div className="stats-grid">
             <div className="stat-card income">
               <div className="stat-icon">💰</div>
-              <div className="stat-value">{formatCurrency(adminStats.totalIncome)}</div>
+              <div className="stat-value">{formatCurrency(adminStats.totalIncome, locale)}</div>
               <div className="stat-label">{t.dashboard.totalIncome} ({locale === 'vi' ? 'Toàn hệ thống' : 'System-wide'})</div>
             </div>
             <div className="stat-card outcome">
               <div className="stat-icon">💸</div>
-              <div className="stat-value">{formatCurrency(adminStats.totalOutcome)}</div>
+              <div className="stat-value">{formatCurrency(adminStats.totalOutcome, locale)}</div>
               <div className="stat-label">{t.dashboard.totalOutcome}</div>
             </div>
             <div className="stat-card balance">
@@ -148,7 +148,7 @@ export default function AdminPage() {
                 <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => `${(v / 1000000).toFixed(0)}M`} />
                 <Tooltip
                   contentStyle={{ background: '#1a1a3e', border: '1px solid rgba(124,92,252,0.3)', borderRadius: '8px', color: '#e8e8f0' }}
-                  formatter={(value: any) => formatCurrency(Number(value))}
+                  formatter={(value: any) => formatCurrency(Number(value), locale)}
                 />
                 <Legend />
                 <Bar dataKey="income" name={t.dashboard.totalIncome} fill="#00d4aa" radius={[4, 4, 0, 0]} />
@@ -251,7 +251,7 @@ export default function AdminPage() {
                       <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{inc.user.email}</div>
                     </td>
                     <td>{inc.title}</td>
-                    <td className="amount-income">{formatCurrency(inc.amount)}</td>
+                    <td className="amount-income">{formatCurrency(inc.amount, locale)}</td>
                     <td><span className="category-badge">{inc.category}</span></td>
                     <td>{formatDate(inc.date, locale)}</td>
                   </tr>
@@ -284,7 +284,7 @@ export default function AdminPage() {
                       <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{out.user.email}</div>
                     </td>
                     <td>{out.title}</td>
-                    <td className="amount-outcome">{formatCurrency(out.amount)}</td>
+                    <td className="amount-outcome">{formatCurrency(out.amount, locale)}</td>
                     <td><span className="category-badge">{out.category}</span></td>
                     <td>{formatDate(out.date, locale)}</td>
                   </tr>

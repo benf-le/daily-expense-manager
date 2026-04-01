@@ -157,7 +157,14 @@ export default function OutcomePage() {
   // Monthly trend
   const monthlyMap: Record<string, number> = {};
   outcomes.forEach((out) => {
-    const m = new Date(out.date).toLocaleDateString('vi-VN', { month: 'short', year: '2-digit' });
+    const localeMap: Record<string, string> = {
+      vi: 'vi-VN',
+      en: 'en-US',
+      hi: 'en-IN',
+      ko: 'ko-KR',
+      zh: 'zh-CN',
+    };
+    const m = new Date(out.date).toLocaleDateString(localeMap[locale] || 'vi-VN', { month: 'short', year: '2-digit' });
     monthlyMap[m] = (monthlyMap[m] || 0) + out.amount;
   });
   const monthlyTrend = Object.entries(monthlyMap).map(([month, amount]) => ({ month, amount })).reverse().slice(0, 6).reverse();
@@ -194,7 +201,7 @@ export default function OutcomePage() {
                   type="text"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  placeholder={locale === 'vi' ? 'Nhập tiêu đề...' : 'Enter title...'}
+                  placeholder={`${t.outcome.form.titleLabel}...`}
                   required
                 />
               </div>
@@ -244,7 +251,7 @@ export default function OutcomePage() {
                   className="form-textarea"
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
-                  placeholder={locale === 'vi' ? 'Mô tả chi tiết...' : 'Description...'}
+                  placeholder={`${t.outcome.form.description}...`}
                 />
               </div>
 
@@ -268,7 +275,7 @@ export default function OutcomePage() {
           <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="card-header">
               <div className="card-title">{t.outcome.list}</div>
-              <div className="card-subtitle">{formatCurrency(totalOutcome)}</div>
+              <div className="card-subtitle">{formatCurrency(totalOutcome, locale)}</div>
             </div>
 
             <div className="filter-bar">
@@ -319,7 +326,7 @@ export default function OutcomePage() {
                     {outcomes.map((outcome) => (
                       <tr key={outcome.id}>
                         <td>{outcome.title}</td>
-                        <td className="amount-outcome">{formatCurrency(outcome.amount)}</td>
+                        <td className="amount-outcome">{formatCurrency(outcome.amount, locale)}</td>
                         <td>
                           <span className="category-badge">
                             {(t.outcome.categories as Record<string, string>)[outcome.category] || outcome.category}
@@ -366,7 +373,7 @@ export default function OutcomePage() {
               </h4>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 13 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>
-                  {formatCurrency(budgetInfo.monthlyOutcome)} / {formatCurrency(budgetInfo.budgetLimit)}
+                  {formatCurrency(budgetInfo.monthlyOutcome, locale)} / {formatCurrency(budgetInfo.budgetLimit, locale)}
                 </span>
                 <span style={{ color: budgetPercent >= 100 ? 'var(--accent-danger)' : budgetPercent >= 80 ? 'var(--accent-warning)' : 'var(--income-color)', fontWeight: 600 }}>
                   {budgetPercent}%
@@ -408,7 +415,7 @@ export default function OutcomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value))}
+                      formatter={(value: any) => formatCurrency(Number(value), locale)}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -445,7 +452,7 @@ export default function OutcomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value))}
+                      formatter={(value: any) => formatCurrency(Number(value), locale)}
                     />
                     <Area type="monotone" dataKey="amount" stroke="#ff4d6a" fill="rgba(255,77,106,0.2)" strokeWidth={2} />
                   </AreaChart>

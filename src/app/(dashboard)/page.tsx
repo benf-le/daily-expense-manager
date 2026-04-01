@@ -62,8 +62,8 @@ export default function DashboardPage() {
 
   // Pie chart data for this month
   const pieData = [
-    { name: locale === 'vi' ? 'Thu nhập' : 'Income', value: stats.monthlyIncome },
-    { name: locale === 'vi' ? 'Chi tiêu' : 'Expenses', value: stats.monthlyOutcome },
+    { name: t.dashboard.totalIncome, value: stats.monthlyIncome },
+    { name: t.dashboard.totalOutcome, value: stats.monthlyOutcome },
   ].filter(d => d.value > 0);
 
   return (
@@ -76,17 +76,17 @@ export default function DashboardPage() {
       <div className="stats-grid">
         <div className="stat-card income">
           <div className="stat-icon">💰</div>
-          <div className="stat-value">{formatCurrency(stats.totalIncome)}</div>
+          <div className="stat-value">{formatCurrency(stats.totalIncome, locale)}</div>
           <div className="stat-label">{t.dashboard.totalIncome}</div>
         </div>
         <div className="stat-card outcome">
           <div className="stat-icon">💸</div>
-          <div className="stat-value">{formatCurrency(stats.totalOutcome)}</div>
+          <div className="stat-value">{formatCurrency(stats.totalOutcome, locale)}</div>
           <div className="stat-label">{t.dashboard.totalOutcome}</div>
         </div>
         <div className="stat-card balance">
           <div className="stat-icon">📈</div>
-          <div className="stat-value">{formatCurrency(stats.balance)}</div>
+          <div className="stat-value">{formatCurrency(stats.balance, locale)}</div>
           <div className="stat-label">{t.dashboard.balance}</div>
         </div>
         <div className="stat-card transactions">
@@ -112,7 +112,7 @@ export default function DashboardPage() {
               ? t.dashboard.budgetWarning.replace('{percent}', String(stats.budgetPercent))
               : t.dashboard.budgetSafe}
             {' • '}
-            {t.dashboard.budget}: {formatCurrency(stats.budgetLimit)} | {t.dashboard.spent}: {formatCurrency(stats.monthlyOutcome)} | {t.dashboard.remaining}: {formatCurrency(stats.budgetRemaining)}
+            {t.dashboard.budget}: {formatCurrency(stats.budgetLimit, locale)} | {t.dashboard.spent}: {formatCurrency(stats.monthlyOutcome, locale)} | {t.dashboard.remaining}: {formatCurrency(stats.budgetRemaining, locale)}
           </div>
         </div>
         <div className="budget-progress-bar">
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                   borderRadius: '8px',
                   color: '#e8e8f0',
                 }}
-                formatter={(value: any) => formatCurrency(Number(value))}
+                formatter={(value: any) => formatCurrency(Number(value), locale)}
               />
               <Legend />
               <Bar dataKey="income" name={t.dashboard.totalIncome} fill="#00d4aa" radius={[4, 4, 0, 0]} />
@@ -178,7 +178,7 @@ export default function DashboardPage() {
                     borderRadius: '8px',
                     color: '#e8e8f0',
                   }}
-                  formatter={(value: any) => formatCurrency(Number(value))}
+                  formatter={(value: any) => formatCurrency(Number(value), locale)}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -209,7 +209,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <div className={`tx-amount ${tx.type}`}>
-                    {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount)}
+                    {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount, locale)}
                   </div>
                   <div className="tx-date">{formatDate(tx.date, locale)}</div>
                 </div>
