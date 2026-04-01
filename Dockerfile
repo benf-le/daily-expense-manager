@@ -17,9 +17,10 @@ COPY . .
 
 # Set default environment variables for the build and runtime
 ENV NODE_ENV=production
-ENV DATABASE_URL="postgresql://username:password@server-ip:5432/db_name?schema=public"
-ENV NEXTAUTH_SECRET="super-secret-key-daily-expense-manager-2026"
-ENV NEXTAUTH_URL="http://localhost:3000"
+
+# The .env file will be copied as part of the 'COPY . .' step above.
+# Next.js and Prisma naturally look for .env in the app root.
+# Make sure your .env has all necessary variables like DATABASE_URL, NEXTAUTH_SECRET, etc.
 
 # Generate the Prisma Client
 RUN npx prisma generate
