@@ -19,8 +19,8 @@ interface Income {
   date: string;
 }
 
-const CATEGORIES = ['Lương', 'Thưởng', 'Đầu tư', 'Freelance', 'Kinh doanh', 'Khác'];
-const PIE_COLORS = ['#7c5cfc', '#00d4aa', '#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb'];
+const CATEGORIES = ['Lương', 'Thưởng', 'Đầu tư', 'Freelance', 'Kinh doanh', 'Mượn', 'Người khác trả nợ lại', 'Khác'];
+const PIE_COLORS = ['#7c5cfc', '#00d4aa', '#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb', '#69f0ae', '#ffd54f'];
 
 export default function IncomePage() {
   const { t, locale } = useLanguage();

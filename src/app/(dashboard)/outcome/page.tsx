@@ -19,8 +19,8 @@ interface Outcome {
   date: string;
 }
 
-const CATEGORIES = ['Ăn uống', 'Di chuyển', 'Giải trí', 'Mua sắm', 'Hóa đơn', 'Sức khỏe', 'Giáo dục', 'Khác'];
-const PIE_COLORS = ['#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb', '#7c5cfc', '#00d4aa', '#69f0ae', '#ffd54f'];
+const CATEGORIES = ['Ăn uống', 'Di chuyển', 'Giải trí', 'Mua sắm', 'Hóa đơn', 'Sức khỏe', 'Giáo dục', 'Thẻ tín dụng', 'Tặng/cho', 'Cho mượn', 'Trả nợ', 'Khác'];
+const PIE_COLORS = ['#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb', '#7c5cfc', '#00d4aa', '#69f0ae', '#ffd54f', '#a855f7', '#ec4899', '#f97316', '#10b981'];
 
 export default function OutcomePage() {
   const { t, locale } = useLanguage();
