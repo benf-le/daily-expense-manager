@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 
@@ -47,7 +48,23 @@ export default function RegisterPage() {
       }
 
       setSuccess(t.auth.registerSuccess);
-      setTimeout(() => router.push('/login'), 1500);
+      
+      // Auto login after registration
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        // If auto-login fails for some reason, redirect to login page
+        setTimeout(() => router.push('/login'), 1500);
+      } else {
+        setTimeout(() => {
+          router.push('/');
+          router.refresh();
+        }, 1500);
+      }
     } catch {
       setError(t.common.error);
     } finally {
