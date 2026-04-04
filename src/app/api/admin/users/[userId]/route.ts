@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
 import { auth } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 
@@ -92,3 +93,35 @@ export async function GET(
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  try {
+    const session = await auth();
+    if (session?.user?.role !== 'ADMIN') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { userId } = await params;
+    const body = await req.json();
+
+    if (!body.password) {
+      return NextResponse.json({ error: 'Password is required' }, { status: 400 });
+    }
+
+    const hashedPassword = await bcrypt.hash(body.password, 10);
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Update user password error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+

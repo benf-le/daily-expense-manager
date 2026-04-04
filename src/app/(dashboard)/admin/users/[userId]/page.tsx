@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/components/LanguageProvider';
 import { formatDate } from '@/lib/i18n';
+import { showToast } from '@/components/Toast';
 import Link from 'next/link';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -38,6 +39,8 @@ export default function UserDetailPage({ params }: { params: Promise<{ userId: s
   const { t, locale } = useLanguage();
   const [data, setData] = useState<UserDetail | null>(null);
   const [loading, setLoading] = useState(true);
+  const [newPassword, setNewPassword] = useState('');
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   const formatCurrency = (amount: number) => {
     if (!data) return amount.toString();
@@ -117,6 +120,33 @@ export default function UserDetailPage({ params }: { params: Promise<{ userId: s
     }
   };
 
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPassword || newPassword.length < 6) {
+      showToast(t.auth.passwordError || 'Mật khẩu phải có ít nhất 6 ký tự', 'error');
+      return;
+    }
+    setIsChangingPassword(true);
+    try {
+      const res = await fetch(`/api/admin/users/${unwrappedParams.userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: newPassword }),
+      });
+      if (res.ok) {
+        showToast(locale === 'vi' ? 'Đổi mật khẩu thành công!' : 'Password changed successfully!', 'success');
+        setNewPassword('');
+      } else {
+        const errorData = await res.json();
+        showToast(errorData.error || t.common.error, 'error');
+      }
+    } catch {
+      showToast(t.common.error, 'error');
+    } finally {
+      setIsChangingPassword(false);
+    }
+  };
+
   if (loading) {
     return <div className="loading-spinner"><div className="spinner"></div></div>;
   }
@@ -154,6 +184,26 @@ export default function UserDetailPage({ params }: { params: Promise<{ userId: s
           <div className="stat-label">{locale === 'vi' ? 'Ngày tham gia' : 'Member Since'}</div>
           <div className="stat-value" style={{ fontSize: 16 }}>{formatDate(data.user.createdAt, locale)}</div>
         </div>
+      </div>
+
+      <div className="card" style={{ marginBottom: 24, padding: 24 }}>
+        <h3 style={{ marginBottom: 16, fontSize: 18, fontWeight: 600 }}>{locale === 'vi' ? 'Thao tác Quản trị' : 'Admin Actions'}</h3>
+        <form onSubmit={handlePasswordChange} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ flex: 1, maxWidth: 300 }}>
+            <input
+              type="password"
+              className="form-input"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder={locale === 'vi' ? 'Mật khẩu mới (ít nhất 6 ký tự)' : 'New password (min 6 chars)'}
+              required
+              minLength={6}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary" disabled={isChangingPassword}>
+            {isChangingPassword ? <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }}></div> : (locale === 'vi' ? 'Đổi mật khẩu' : 'Change Password')}
+          </button>
+        </form>
       </div>
 
       <div className="chart-container" style={{ marginBottom: 24 }}>
