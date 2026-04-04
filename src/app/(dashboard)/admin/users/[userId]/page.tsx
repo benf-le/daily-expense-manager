@@ -123,7 +123,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ userId: s
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPassword || newPassword.length < 6) {
-      showToast(t.auth.passwordError || 'Mật khẩu phải có ít nhất 6 ký tự', 'error');
+      showToast(locale === 'vi' ? 'Mật khẩu phải có ít nhất 6 ký tự' : 'Password must be at least 6 characters', 'error');
       return;
     }
     setIsChangingPassword(true);
