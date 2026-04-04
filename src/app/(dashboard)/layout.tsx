@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
@@ -16,8 +16,14 @@ export default function DashboardLayout({
 }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
   const { t } = useLanguage();
   const [showBudgetSetup, setShowBudgetSetup] = useState(false);
+
+  let navTitle: string = t.nav.dashboard;
+  if (pathname === '/income') navTitle = t.nav.income;
+  else if (pathname === '/outcome') navTitle = t.nav.outcome;
+  else if (pathname === '/admin') navTitle = t.nav.admin;
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -70,7 +76,7 @@ export default function DashboardLayout({
   return (
     <div className="app-layout">
       <Sidebar />
-      <Navbar title={t.nav.dashboard} />
+      <Navbar title={navTitle} />
       <MobileMenu />
       <BudgetSetupModal
         isOpen={showBudgetSetup}
