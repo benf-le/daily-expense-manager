@@ -199,7 +199,12 @@ export default function AdminPage() {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id}>
+                  <tr 
+                    key={user.id} 
+                    style={{ cursor: 'pointer' }} 
+                    onClick={() => router.push(`/admin/users/${user.id}`)}
+                    className="hoverable-row"
+                  >
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>
@@ -217,7 +222,7 @@ export default function AdminPage() {
                       {user.id !== session?.user?.id && (
                         <button
                           className="btn btn-ghost btn-sm"
-                          onClick={() => setDeleteUserId(user.id)}
+                          onClick={(e) => { e.stopPropagation(); setDeleteUserId(user.id); }}
                           style={{ color: 'var(--accent-danger)' }}
                         >
                           🗑️
