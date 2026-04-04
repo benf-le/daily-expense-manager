@@ -114,6 +114,7 @@ export const translations = {
       invalidCredentials: 'Email hoặc mật khẩu không đúng',
       emailExists: 'Email đã được sử dụng',
       passwordMismatch: 'Mật khẩu không khớp',
+      namePlaceholder: 'Nguyễn Văn A'
     },
     // Common
     common: {
@@ -257,6 +258,9 @@ export const translations = {
       invalidCredentials: 'Invalid email or password',
       emailExists: 'Email already in use',
       passwordMismatch: 'Passwords do not match',
+      namePlaceholder: 'John Doe',
+      emailPlaceholder: 'example@email.com',
+      passwordPlaceholder: '••••••••',
     },
     common: {
       actions: 'Actions',
@@ -398,6 +402,9 @@ export const translations = {
       invalidCredentials: 'अमान्य ईमेल या पासवर्ड',
       emailExists: 'ईमेल पहले से ही उपयोग में है',
       passwordMismatch: 'पासवर्ड मेल नहीं खाते',
+      namePlaceholder: 'अमित कुमार',
+      emailPlaceholder: 'udaharan@email.com',
+      passwordPlaceholder: '••••••••',
     },
     common: {
       actions: 'क्रियाएँ',
@@ -539,6 +546,9 @@ export const translations = {
       invalidCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
       emailExists: '이미 사용 중인 이메일입니다',
       passwordMismatch: '비밀번호가 일치하지 않습니다',
+      namePlaceholder: '홍길동',
+      emailPlaceholder: 'example@email.com',
+      passwordPlaceholder: '••••••••',
     },
     common: {
       actions: '작업',
@@ -680,6 +690,9 @@ export const translations = {
       invalidCredentials: '邮箱或密码错误',
       emailExists: '邮箱已被占用',
       passwordMismatch: '密码不匹配',
+      namePlaceholder: '张三',
+      emailPlaceholder: 'example@email.com',
+      passwordPlaceholder: '••••••••',
     },
     common: {
       actions: '操作',

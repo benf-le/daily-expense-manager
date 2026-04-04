@@ -17,6 +17,14 @@ export default function RegisterPage() {
   const router = useRouter();
   const { t, locale, toggleLocale } = useLanguage();
 
+  const langDisplay: Record<string, { flag: string; label: string }> = {
+    vi: { flag: '🇻🇳', label: 'VI' },
+    en: { flag: '🇬🇧', label: 'EN' },
+    hi: { flag: '🇮🇳', label: 'HI' },
+    ko: { flag: '🇰🇷', label: 'KO' },
+    zh: { flag: '🇨🇳', label: 'ZH' },
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
@@ -48,7 +56,7 @@ export default function RegisterPage() {
       }
 
       setSuccess(t.auth.registerSuccess);
-      
+
       // Auto login after registration
       const result = await signIn('credentials', {
         email,
@@ -77,8 +85,8 @@ export default function RegisterPage() {
       <div className="auth-container">
         <div style={{ textAlign: 'right', marginBottom: 16 }}>
           <button className="lang-toggle" onClick={toggleLocale}>
-            <span className="lang-flag">{locale === 'vi' ? '🇻🇳' : '🇬🇧'}</span>
-            <span>{locale === 'vi' ? 'VI' : 'EN'}</span>
+            <span className="lang-flag">{langDisplay[locale]?.flag || '🇻🇳'}</span>
+            <span>{langDisplay[locale]?.label || 'VI'}</span>
           </button>
         </div>
         <div className="auth-card">
@@ -100,7 +108,7 @@ export default function RegisterPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Nguyễn Văn A"
+                placeholder={t.auth.namePlaceholder}
                 required
               />
             </div>
@@ -140,7 +148,7 @@ export default function RegisterPage() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder={t.auth.passwordPlaceholder}
                 required
               />
             </div>
