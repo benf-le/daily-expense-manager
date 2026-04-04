@@ -1114,6 +1114,7 @@ export namespace Prisma {
     password: string | null
     role: string | null
     budgetLimit: number | null
+    currency: string | null
     avatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1126,6 +1127,7 @@ export namespace Prisma {
     password: string | null
     role: string | null
     budgetLimit: number | null
+    currency: string | null
     avatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1138,6 +1140,7 @@ export namespace Prisma {
     password: number
     role: number
     budgetLimit: number
+    currency: number
     avatar: number
     createdAt: number
     updatedAt: number
@@ -1160,6 +1163,7 @@ export namespace Prisma {
     password?: true
     role?: true
     budgetLimit?: true
+    currency?: true
     avatar?: true
     createdAt?: true
     updatedAt?: true
@@ -1172,6 +1176,7 @@ export namespace Prisma {
     password?: true
     role?: true
     budgetLimit?: true
+    currency?: true
     avatar?: true
     createdAt?: true
     updatedAt?: true
@@ -1184,6 +1189,7 @@ export namespace Prisma {
     password?: true
     role?: true
     budgetLimit?: true
+    currency?: true
     avatar?: true
     createdAt?: true
     updatedAt?: true
@@ -1283,6 +1289,7 @@ export namespace Prisma {
     password: string
     role: string
     budgetLimit: number
+    currency: string
     avatar: string | null
     createdAt: Date
     updatedAt: Date
@@ -1314,6 +1321,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     budgetLimit?: boolean
+    currency?: boolean
     avatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1329,6 +1337,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     budgetLimit?: boolean
+    currency?: boolean
     avatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1341,6 +1350,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     budgetLimit?: boolean
+    currency?: boolean
     avatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1353,12 +1363,13 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     budgetLimit?: boolean
+    currency?: boolean
     avatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "budgetLimit" | "avatar" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "budgetLimit" | "currency" | "avatar" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     incomes?: boolean | User$incomesArgs<ExtArgs>
     outcomes?: boolean | User$outcomesArgs<ExtArgs>
@@ -1380,6 +1391,7 @@ export namespace Prisma {
       password: string
       role: string
       budgetLimit: number
+      currency: string
       avatar: string | null
       createdAt: Date
       updatedAt: Date
@@ -1814,6 +1826,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'String'>
     readonly budgetLimit: FieldRef<"User", 'Float'>
+    readonly currency: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -4595,6 +4608,7 @@ export namespace Prisma {
     password: 'password',
     role: 'role',
     budgetLimit: 'budgetLimit',
+    currency: 'currency',
     avatar: 'avatar',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -4731,6 +4745,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
     budgetLimit?: FloatFilter<"User"> | number
+    currency?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -4745,6 +4760,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     budgetLimit?: SortOrder
+    currency?: SortOrder
     avatar?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4762,6 +4778,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
     budgetLimit?: FloatFilter<"User"> | number
+    currency?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -4776,6 +4793,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     budgetLimit?: SortOrder
+    currency?: SortOrder
     avatar?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4796,6 +4814,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     role?: StringWithAggregatesFilter<"User"> | string
     budgetLimit?: FloatWithAggregatesFilter<"User"> | number
+    currency?: StringWithAggregatesFilter<"User"> | string
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -4962,6 +4981,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4976,6 +4996,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4990,6 +5011,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5004,6 +5026,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5018,6 +5041,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5030,6 +5054,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5042,6 +5067,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5297,6 +5323,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     budgetLimit?: SortOrder
+    currency?: SortOrder
     avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5313,6 +5340,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     budgetLimit?: SortOrder
+    currency?: SortOrder
     avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5325,6 +5353,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     budgetLimit?: SortOrder
+    currency?: SortOrder
     avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5894,6 +5923,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5907,6 +5937,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5936,6 +5967,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5949,6 +5981,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5962,6 +5995,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5975,6 +6009,7 @@ export namespace Prisma {
     password: string
     role?: string
     budgetLimit?: number
+    currency?: string
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6004,6 +6039,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6017,6 +6053,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     budgetLimit?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

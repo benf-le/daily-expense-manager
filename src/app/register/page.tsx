@@ -148,7 +148,7 @@ export default function RegisterPage() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder={t.auth.passwordPlaceholder}
+                placeholder="••••••••"
                 required
               />
             </div>

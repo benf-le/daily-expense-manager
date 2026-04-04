@@ -15,6 +15,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [budgetLimit, setBudgetLimit] = useState('');
+  const [currency, setCurrency] = useState('VND');
   const [password, setPassword] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -38,6 +39,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         setName(data.name || '');
         setEmail(data.email || '');
         setBudgetLimit(data.budgetLimit?.toString() || '0');
+        setCurrency(data.currency || 'VND');
         setAvatarUrl(data.avatar || null);
         setPreviewUrl(data.avatar || null);
       }
@@ -53,7 +55,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
     setLoading(true);
 
     try {
-      const payload: any = { name, email, budgetLimit: parseFloat(budgetLimit) };
+      const payload: any = { name, email, budgetLimit: parseFloat(budgetLimit), currency };
       if (password) {
         payload.password = password;
       }
@@ -202,7 +204,18 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Budget Limit ({t.common.currency})</label>
+              <label className="form-label">Currency</label>
+              <select className="form-input" value={currency} onChange={(e) => setCurrency(e.target.value)}>
+                <option value="VND">₫ VND</option>
+                <option value="USD">$ USD</option>
+                <option value="INR">₹ INR</option>
+                <option value="KRW">₩ KRW</option>
+                <option value="CNY">¥ CNY</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Budget Limit ({currency})</label>
               <input
                 className="form-input"
                 type="number"

@@ -16,6 +16,7 @@ export async function GET(req: NextRequest) {
         name: true,
         email: true,
         budgetLimit: true,
+        currency: true,
         avatar: true,
       },
     });
@@ -41,12 +42,13 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { name, email, budgetLimit, password, avatar } = await req.json();
+    const { name, email, budgetLimit, currency, password, avatar } = await req.json();
 
     const dataToUpdate: any = {};
     if (name) dataToUpdate.name = name;
     if (email) dataToUpdate.email = email;
     if (budgetLimit !== undefined) dataToUpdate.budgetLimit = parseFloat(budgetLimit);
+    if (currency) dataToUpdate.currency = currency;
     if (avatar !== undefined) dataToUpdate.avatar = avatar;
     
     if (password) {
@@ -57,7 +59,7 @@ export async function PUT(req: NextRequest) {
     const user = await prisma.user.update({
       where: { id: session.user.id },
       data: dataToUpdate,
-      select: { name: true, email: true, budgetLimit: true, avatar: true },
+      select: { name: true, email: true, budgetLimit: true, currency: true, avatar: true },
     });
 
     return NextResponse.json(user);

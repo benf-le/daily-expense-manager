@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
+import { formatDate } from '@/lib/i18n';
 import DeleteModal from '@/components/DeleteModal';
 import { showToast } from '@/components/Toast';
 import {
@@ -23,7 +23,7 @@ const CATEGORIES = ['Lương', 'Thưởng', 'Đầu tư', 'Freelance', 'Kinh doa
 const PIE_COLORS = ['#7c5cfc', '#00d4aa', '#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb', '#69f0ae', '#ffd54f'];
 
 export default function IncomePage() {
-  const { t, locale } = useLanguage();
+  const { t, locale, formatCurrency, formatCompactNumber } = useLanguage();
   const [incomes, setIncomes] = useState<Income[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -259,7 +259,7 @@ export default function IncomePage() {
           <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="card-header">
               <div className="card-title">{t.income.list}</div>
-              <div className="card-subtitle">{formatCurrency(totalIncome, locale)}</div>
+              <div className="card-subtitle">{formatCurrency(totalIncome)}</div>
             </div>
 
             <div className="filter-bar">
@@ -310,7 +310,7 @@ export default function IncomePage() {
                     {incomes.map((income) => (
                       <tr key={income.id}>
                         <td>{income.title}</td>
-                        <td className="amount-income">{formatCurrency(income.amount, locale)}</td>
+                        <td className="amount-income">{formatCurrency(income.amount)}</td>
                         <td>
                           <span className="category-badge">
                             {(t.income.categories as Record<string, string>)[income.category] || income.category}
@@ -378,7 +378,7 @@ export default function IncomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value), locale)}
+                      formatter={(value: any) => formatCurrency(Number(value))}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -407,7 +407,7 @@ export default function IncomePage() {
                   <AreaChart data={monthlyTrend}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
                     <XAxis dataKey="month" stroke="#6b6b8a" fontSize={10} />
-                    <YAxis stroke="#6b6b8a" fontSize={10} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
+                    <YAxis stroke="#6b6b8a" fontSize={10} tickFormatter={(v) => formatCompactNumber(Number(v))} />
                     <Tooltip
                       contentStyle={{
                         background: '#1a1a3e',
@@ -416,7 +416,7 @@ export default function IncomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value), locale)}
+                      formatter={(value: any) => formatCurrency(Number(value))}
                     />
                     <Area type="monotone" dataKey="amount" stroke="#00d4aa" fill="rgba(0,212,170,0.2)" strokeWidth={2} />
                   </AreaChart>

@@ -15,6 +15,7 @@ export default function BudgetSetupModal({
 }: BudgetSetupModalProps) {
   const { t } = useLanguage();
   const [budgetLimit, setBudgetLimit] = useState('');
+  const [currency, setCurrency] = useState('VND');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -46,7 +47,7 @@ export default function BudgetSetupModal({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ budgetLimit: parsedBudget }),
+        body: JSON.stringify({ budgetLimit: parsedBudget, currency }),
       });
 
       if (!response.ok) {
@@ -88,8 +89,19 @@ export default function BudgetSetupModal({
                 placeholder={t.common.budgetSetupPlaceholder}
                 autoFocus
               />
-              <span className="budget-currency-tag">
-                {t.common.currencySymbol} {t.common.currency}
+              <span className="budget-currency-tag" style={{ padding: 0 }}>
+                <select
+                  className="form-input"
+                  style={{ border: 'none', background: 'darkgreen', width: 'auto', padding: '0 8px', outline: 'none' }}
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                >
+                  <option value="VND">₫ VND</option>
+                  <option value="USD">$ USD</option>
+                  <option value="INR">₹ INR</option>
+                  <option value="KRW">₩ KRW</option>
+                  <option value="CNY">¥ CNY</option>
+                </select>
               </span>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
+import { formatDate } from '@/lib/i18n';
 import { showToast } from '@/components/Toast';
 import DeleteModal from '@/components/DeleteModal';
 import {
@@ -45,7 +45,7 @@ interface AdminStats {
 export default function AdminPage() {
   const { data: session } = useSession();
   const router = useRouter();
-  const { t, locale } = useLanguage();
+  const { t, locale, formatCurrency, formatCompactNumber } = useLanguage();
   const [activeTab, setActiveTab] = useState<'users' | 'incomes' | 'outcomes'>('users');
   const [users, setUsers] = useState<UserData[]>([]);
   const [allIncomes, setAllIncomes] = useState<Transaction[]>([]);
@@ -117,12 +117,12 @@ export default function AdminPage() {
           <div className="stats-grid">
             <div className="stat-card income">
               <div className="stat-icon">💰</div>
-              <div className="stat-value">{formatCurrency(adminStats.totalIncome, locale)}</div>
+              <div className="stat-value">{formatCurrency(adminStats.totalIncome)}</div>
               <div className="stat-label">{t.dashboard.totalIncome} ({locale === 'vi' ? 'Toàn hệ thống' : 'System-wide'})</div>
             </div>
             <div className="stat-card outcome">
               <div className="stat-icon">💸</div>
-              <div className="stat-value">{formatCurrency(adminStats.totalOutcome, locale)}</div>
+              <div className="stat-value">{formatCurrency(adminStats.totalOutcome)}</div>
               <div className="stat-label">{t.dashboard.totalOutcome}</div>
             </div>
             <div className="stat-card balance">
@@ -145,10 +145,10 @@ export default function AdminPage() {
               <BarChart data={adminStats.monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
                 <XAxis dataKey="month" stroke="#6b6b8a" fontSize={12} />
-                <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
+                <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => formatCompactNumber(Number(v))} />
                 <Tooltip
                   contentStyle={{ background: '#1a1a3e', border: '1px solid rgba(124,92,252,0.3)', borderRadius: '8px', color: '#e8e8f0' }}
-                  formatter={(value: any) => formatCurrency(Number(value), locale)}
+                  formatter={(value: any) => formatCurrency(Number(value))}
                 />
                 <Legend />
                 <Bar dataKey="income" name={t.dashboard.totalIncome} fill="#00d4aa" radius={[4, 4, 0, 0]} />
@@ -251,7 +251,7 @@ export default function AdminPage() {
                       <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{inc.user.email}</div>
                     </td>
                     <td>{inc.title}</td>
-                    <td className="amount-income">{formatCurrency(inc.amount, locale)}</td>
+                    <td className="amount-income">{formatCurrency(inc.amount)}</td>
                     <td><span className="category-badge">{inc.category}</span></td>
                     <td>{formatDate(inc.date, locale)}</td>
                   </tr>
@@ -284,7 +284,7 @@ export default function AdminPage() {
                       <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{out.user.email}</div>
                     </td>
                     <td>{out.title}</td>
-                    <td className="amount-outcome">{formatCurrency(out.amount, locale)}</td>
+                    <td className="amount-outcome">{formatCurrency(out.amount)}</td>
                     <td><span className="category-badge">{out.category}</span></td>
                     <td>{formatDate(out.date, locale)}</td>
                   </tr>

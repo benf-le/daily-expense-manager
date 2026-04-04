@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
+import { formatDate } from '@/lib/i18n';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
   PieChart, Pie, Cell,
@@ -26,7 +26,7 @@ interface StatsData {
 const PIE_COLORS = ['#7c5cfc', '#00d4aa', '#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb', '#69f0ae', '#ffd54f'];
 
 export default function DashboardPage() {
-  const { t, locale } = useLanguage();
+  const { t, locale, formatCurrency, formatCompactNumber } = useLanguage();
   const [stats, setStats] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -76,17 +76,17 @@ export default function DashboardPage() {
       <div className="stats-grid">
         <div className="stat-card income">
           <div className="stat-icon">💰</div>
-          <div className="stat-value">{formatCurrency(stats.totalIncome, locale)}</div>
+          <div className="stat-value">{formatCurrency(stats.totalIncome)}</div>
           <div className="stat-label">{t.dashboard.totalIncome}</div>
         </div>
         <div className="stat-card outcome">
           <div className="stat-icon">💸</div>
-          <div className="stat-value">{formatCurrency(stats.totalOutcome, locale)}</div>
+          <div className="stat-value">{formatCurrency(stats.totalOutcome)}</div>
           <div className="stat-label">{t.dashboard.totalOutcome}</div>
         </div>
         <div className="stat-card balance">
           <div className="stat-icon">📈</div>
-          <div className="stat-value">{formatCurrency(stats.balance, locale)}</div>
+          <div className="stat-value">{formatCurrency(stats.balance)}</div>
           <div className="stat-label">{t.dashboard.balance}</div>
         </div>
         <div className="stat-card transactions">
@@ -112,7 +112,7 @@ export default function DashboardPage() {
                 ? t.dashboard.budgetWarning.replace('{percent}', String(stats.budgetPercent))
                 : t.dashboard.budgetSafe}
             {' • '}
-            {t.dashboard.budget}: {formatCurrency(stats.budgetLimit, locale)} | {t.dashboard.spent}: {formatCurrency(stats.monthlyOutcome, locale)} | {t.dashboard.remaining}: {formatCurrency(stats.budgetRemaining, locale)}
+            {t.dashboard.budget}: {formatCurrency(stats.budgetLimit)} | {t.dashboard.spent}: {formatCurrency(stats.monthlyOutcome)} | {t.dashboard.remaining}: {formatCurrency(stats.budgetRemaining)}
           </div>
         </div>
         <div className="budget-progress-bar">
@@ -133,7 +133,7 @@ export default function DashboardPage() {
             <BarChart data={stats.monthlyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
               <XAxis dataKey="month" stroke="#6b6b8a" fontSize={12} />
-              <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
+              <YAxis stroke="#6b6b8a" fontSize={12} tickFormatter={(v) => formatCompactNumber(Number(v))} />
               <Tooltip
                 contentStyle={{
                   background: '#1a1a3e',
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                   borderRadius: '8px',
                   color: '#e8e8f0',
                 }}
-                formatter={(value: any) => formatCurrency(Number(value), locale)}
+                formatter={(value: any) => formatCurrency(Number(value))}
               />
               <Legend />
               <Bar dataKey="income" name={t.dashboard.totalIncome} fill="#00d4aa" radius={[4, 4, 0, 0]} />
@@ -178,7 +178,7 @@ export default function DashboardPage() {
                     borderRadius: '8px',
                     color: '#e8e8f0',
                   }}
-                  formatter={(value: any) => formatCurrency(Number(value), locale)}
+                  formatter={(value: any) => formatCurrency(Number(value))}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -209,7 +209,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <div className={`tx-amount ${tx.type}`}>
-                    {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount, locale)}
+                    {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount)}
                   </div>
                   <div className="tx-date">{formatDate(tx.date, locale)}</div>
                 </div>

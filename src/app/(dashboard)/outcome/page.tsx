@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { formatCurrency, formatDate, formatCompactNumber } from '@/lib/i18n';
+import { formatDate } from '@/lib/i18n';
 import DeleteModal from '@/components/DeleteModal';
 import { showToast } from '@/components/Toast';
 import {
@@ -23,7 +23,7 @@ const CATEGORIES = ['Ăn uống', 'Di chuyển', 'Giải trí', 'Mua sắm', 'H�
 const PIE_COLORS = ['#ff4d6a', '#ffb347', '#4fc3f7', '#e040fb', '#7c5cfc', '#00d4aa', '#69f0ae', '#ffd54f', '#a855f7', '#ec4899', '#f97316', '#10b981'];
 
 export default function OutcomePage() {
-  const { t, locale } = useLanguage();
+  const { t, locale, formatCurrency, formatCompactNumber } = useLanguage();
   const [outcomes, setOutcomes] = useState<Outcome[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -276,7 +276,7 @@ export default function OutcomePage() {
           <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="card-header">
               <div className="card-title">{t.outcome.list}</div>
-              <div className="card-subtitle">{formatCurrency(totalOutcome, locale)}</div>
+              <div className="card-subtitle">{formatCurrency(totalOutcome)}</div>
             </div>
 
             <div className="filter-bar">
@@ -327,7 +327,7 @@ export default function OutcomePage() {
                     {outcomes.map((outcome) => (
                       <tr key={outcome.id}>
                         <td>{outcome.title}</td>
-                        <td className="amount-outcome">{formatCurrency(outcome.amount, locale)}</td>
+                        <td className="amount-outcome">{formatCurrency(outcome.amount)}</td>
                         <td>
                           <span className="category-badge">
                             {(t.outcome.categories as Record<string, string>)[outcome.category] || outcome.category}
@@ -374,7 +374,7 @@ export default function OutcomePage() {
               </h4>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 13 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>
-                  {formatCurrency(budgetInfo.monthlyOutcome, locale)} / {formatCurrency(budgetInfo.budgetLimit, locale)}
+                  {formatCurrency(budgetInfo.monthlyOutcome)} / {formatCurrency(budgetInfo.budgetLimit)}
                 </span>
                 <span style={{ color: budgetPercent >= 100 ? 'var(--accent-danger)' : budgetPercent >= 80 ? 'var(--accent-warning)' : 'var(--income-color)', fontWeight: 600 }}>
                   {budgetPercent}%
@@ -416,7 +416,7 @@ export default function OutcomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value), locale)}
+                      formatter={(value: any) => formatCurrency(Number(value))}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -444,7 +444,7 @@ export default function OutcomePage() {
                   <AreaChart data={monthlyTrend}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.1)" />
                     <XAxis dataKey="month" stroke="#6b6b8a" fontSize={10} />
-                    <YAxis stroke="#6b6b8a" fontSize={10} tickFormatter={(v) => formatCompactNumber(Number(v), locale)} />
+                    <YAxis stroke="#6b6b8a" fontSize={10} tickFormatter={(v) => formatCompactNumber(Number(v))} />
                     <Tooltip
                       contentStyle={{
                         background: '#1a1a3e',
@@ -453,7 +453,7 @@ export default function OutcomePage() {
                         color: '#e8e8f0',
                         fontSize: 12,
                       }}
-                      formatter={(value: any) => formatCurrency(Number(value), locale)}
+                      formatter={(value: any) => formatCurrency(Number(value))}
                     />
                     <Area type="monotone" dataKey="amount" stroke="#ff4d6a" fill="rgba(255,77,106,0.2)" strokeWidth={2} />
                   </AreaChart>
